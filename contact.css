@@ -1,0 +1,54 @@
+form {
+  width: 550px;
+  margin: 50px auto;
+  padding: 10px;
+}
+
+form div {
+  margin-top: 15px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+input,
+select,
+textarea {
+  background-color: #dfdede;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 10px;
+  border: 1px solid #dbdbdb;
+  resize: none;
+}
+
+select {
+  width: 572px;
+  height: 37px;
+}
+
+button {
+  background-color: orangered;
+  color: white;
+  padding: 6px 25px;
+  border: none;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 475px;
+  font-size: 15px;
+  cursor: pointer;
+  align-items: end;
+}
+
+button:hover {
+  background-color: black;
+}
+
+h1 {
+  text-align: center;
+  color: red;
+}
+
