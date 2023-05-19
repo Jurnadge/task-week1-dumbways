@@ -1,0 +1,85 @@
+* {
+  text-decoration: none;
+  color: black;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* awal style navigasi */
+nav {
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+}
+
+nav ul li {
+  margin-right: 25px;
+  font-size: 20px;
+}
+
+nav ul li a {
+  color: black;
+}
+
+nav ul li .active {
+  color: orangered;
+}
+
+.nav-kiri {
+  flex: 50%;
+}
+
+.nav-kanan {
+  flex: 50%;
+  text-align: end;
+  margin-right: 25px;
+}
+
+.nav-kanan a {
+  background-color: orangered;
+  padding: 8px 20px;
+  color: white;
+  border-radius: 5px;
+}
+/* akhir style navigasi */
+
+.container-home {
+  display: flex;
+  width: 35%;
+  margin: 50px auto;
+  padding: 30px;
+  box-shadow: 10px 10px 10px 10px black;
+  box-sizing: content-box;
+}
+
+.text-kiri {
+  text-align: justify;
+  padding-right: 50px;
+}
+
+.contact-text-kiri {
+  text-align: center;
+  border-radius: 5px;
+  width: 100px;
+  padding: 5px;
+  background-color: orangered;
+  color: white;
+}
+
+.gambar-mukaguweh {
+  align-items: right;
+  border: 1px;
+  width: 1900px;
+  border-radius: 5% 5% 5% 5%;
+  box-shadow: 5px 5px 5px 3px grey;
+  text-align: center;
+}

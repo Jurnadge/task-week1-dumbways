@@ -1,79 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta name="viewport" content="width=device-width", initial-scale="1.0">
-        <title>Contact Me</title>
-        <link rel="stylesheet" href="contact.css">
-        <link rel="stylesheet" href="style.css">
-    </head>
+  <head>
+    <meta name="viewport" content="width=device-width" , initial-scale="1.0" />
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="css\contact.css" />
+    <link rel="stylesheet" href="css\style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
 
-    <body>
+  <body>
+    <!-- awal-navigasi -->
+    <nav>
+      <div class="nav-kiri">
+        <ul>
+          <li>
+            <img src="assets\icon\logo-dumbways.png" alt="logo" />
+          </li>
 
-        <!-- awal-navigasi -->
-        <nav>
+          <li>
+            <a href="index.html">Home</a>
+          </li>
 
-            <div class="nav-kiri">
-                <ul>
-                    <li>
-                        <img src="icon\logo-dumbways.png" alt="logo" >
-                    </li>
-    
-                    <li>
-                        <a class="active" href="index.html">Home</a>
-                    </li>
-    
-                    <li>
-                        <a href="#">Blog</a>
-                    </li>
-                </ul>
-            </div>
-    
-            <div class="nav-kanan">
-                <a href="contact.html">Contact</a>
-            </div>
-    
-        </nav>
-        <!-- akhir-navigasi -->
+          <li>
+            <a href="my-Project.html">My Project</a>
+          </li>
+          <li>
+            <a href="#">My Testimonials</a>
+          </li>
+        </ul>
+      </div>
 
+      <div class="nav-kanan">
+        <a class="active" href="contact.html">Contact</a>
+      </div>
+    </nav>
+    <!-- akhir-navigasi -->
 
-        <h1>GET IN TOUCH</h1>
+    <h1>GET IN TOUCH</h1>
 
-        <form>
-          <div>
-            <label for="input-name">Name</label>
-            <input id="input-name" type="text" required />
-          </div>
-    
-          <div>
-            <label for="input-email">Email</label>
-            <input id="input-email" type="email" required />
-          </div>
-    
-          <div>
-            <label for="input-phone">Phone Number</label>
-            <input id="input-phone" type="number" required />
-          </div>
-    
-          <div>
-            <label for="input-subject">Subject</label>
-            <select id="input-subject">
-              <option value="" hidden>Select</option>
-              <option>Frontend</option>
-              <option>Backend</option>
-              <option>Fullstack</option>
-            </select>
-          </div>
-    
-          <div>
-            <label for="input-message">Your Messages</label>
-            <textarea id="input-message" rows="5" cols="10"></textarea>
-          </div>
-    
-          <div>
-            <button type="button" onclick="submitData()">Submit</button>
-          </div>
+    <form>
+      <div>
+        <label for="input-name">Name</label>
+        <input id="input-name" type="text" required />
+      </div>
 
-        </form>
-        <script src="contact.js"></script>
-      </body>
-    </html>
+      <div>
+        <label for="input-email">Email</label>
+        <input id="input-email" type="email" required />
+      </div>
+
+      <div>
+        <label for="input-phone">Phone Number</label>
+        <input id="input-phone" type="number" required />
+      </div>
+
+      <div>
+        <label for="input-subject">Subject</label>
+        <select id="input-subject">
+          <option value="" hidden>Select</option>
+          <option>Frontend</option>
+          <option>Backend</option>
+          <option>Fullstack</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="input-message">Your Messages</label>
+        <textarea id="input-message" rows="5" cols="10"></textarea>
+      </div>
+
+      <div>
+        <button type="button" onclick="submitData()">Submit</button>
+      </div>
+    </form>
+    <script src="js\contact.js"></script>
+  </body>
+</html>
