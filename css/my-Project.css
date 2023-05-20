@@ -80,18 +80,37 @@
   height: 250px;
 }
 
-.form-container .kampret .input-project-date input {
-  width: 264px;
+.gitu-doang-bingung {
+  width: 550px;
+  display: flex;
+}
+
+.start-date-kiri {
+  width: 50%;
+  padding-right: 50px;
+}
+
+.end-date-kanan {
+  width: 50%;
+}
+
+.gitu-doang-bingung label {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.gitu-doang-bingung input {
+  width: 100%;
   font-size: 20px;
   font-weight: 400;
   padding: 8px;
   margin-top: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 13px;
   background: #f4f3f3;
   border: 1px solid #c4c4c4;
   border-radius: 8px;
   resize: none;
-  display: flex;
+  text-align: end;
 }
 
 .padding-right-checkbox1 {
@@ -189,6 +208,7 @@
 .grid-container img {
   object-fit: cover;
   width: 100%;
+  padding-top: 10px;
 }
 
 .grid-item1 button {
@@ -198,6 +218,9 @@
   background-color: orange;
   color: white;
   cursor: pointer;
-  align-items: center;
-  justify-content: center;
+}
+
+.font-awesome-grid {
+  font-size: 30px;
+  padding-bottom: 10px;
 }
