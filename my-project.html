@@ -47,7 +47,7 @@
     <div class="add-my-project">
       <div class="add-my-project-form">
         <div class="form-container">
-          <form>
+          <form onsubmit="addProject(event)">
             <h1>Add My Project</h1>
             <div>
               <label for="input-project-name">Project name</label>
@@ -56,6 +56,7 @@
                 id="input-project-name"
                 class="textarea-form-project"
                 placeholder="Project Name"
+                required
               />
             </div>
 
@@ -65,15 +66,15 @@
                 <input
                   type="date"
                   id="input-start-date"
-                  placeholder="Start Date"
+                  required
                 />
               </div>
               <div class="end-date-kanan">
                 <label for="input-end-date">End Date</label>
                 <input
                   type="date"
-                  for="input-end-date"
-                  placeholder="End Date"
+                  id="input-end-date"
+                  required
                 />
               </div>
             </div>
@@ -84,6 +85,7 @@
                 id="input-description"
                 class="textarea-form-project"
                 placeholder="Type the Description"
+                required
               ></textarea>
             </div>
             <div class="form-checkbox-technologies">
@@ -113,11 +115,13 @@
             </div>
             <div>
               <div>
-                <label>Uploud images</label>
+                <label for="input-imeg">Uploud images</label>
               </div>
               <div class="form-input-file-image">
                 <input
                   type="file"
+                  id="input-imeg"
+                  required
                 />&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<i
                   class="fa-solid fa-paperclip"
@@ -138,33 +142,33 @@
 
     <div class="project-post">
       <h1>My Fucking Project</h1>
-      <div class="grid-container">
+      <div id="project" class="grid-container">
         <div class="grid-item1">
           <img src="assets\images\gridimage-1.jpg" alt="gambar-hehe" />
-          <h3>gambar hp</h3>
-          <div class="project-deadline">
-            deadline
+          <div class="judul-project-deadline">
+            <a href="my-project-content.html"><p class="judul-project">gambar hp</p></a>
+            <p class="deadline-project">Duration: 4month</p>
           </div>
           <div class="project-detail">
-            <p>description detail blablablabla</p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+              Consequatur dolorum libero expedita molestias est officiis enim delectus iure laborum ipsam nobis, 
+              cum inventore odio corrupti adipisci dolores veritatis ad ea.
+            </p>
           </div>
           <div class="font-awesome-grid">
-            <a href="#">
-              <i class="fa-brands fa-google-play"></i>
-            </a>
-            <a href="#">
-              <i class="fa-brands fa-android"></i>
-            </a>
-            <a href="#">
-              <i class="fa-brands fa-java"></i>
-            </a>
+            <i class="fa-brands fa-node-js"></i>
+            <i class="fa-brands fa-google-play"></i>
+            <i class="fa-brands fa-react"></i>
+            <i class="fa-brands fa-java"></i>
           </div>
-          <div>
+          <div class="btn-group-post-project">
             <button>Edit</button>
             <button>Read</button>
           </div>
         </div>
       </div>
     </div>
+    <script src="js/My-Project.js"></script>
   </body>
 </html>
