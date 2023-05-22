@@ -70,7 +70,7 @@ function renderProject() {
     <div class="grid-item1">
           <img src="${dataProject[index].image}" alt="gambar-hehe" />
           <div class="judul-project-deadline">
-            <a href="my-project-content.html"><p class="judul-project">${dataProject[index].projectName}</p></a>
+            <a href="#"><p class="judul-project">${dataProject[index].projectName}</p></a>
             <p class="deadline-project">Duration: ${dataProject[index].durasi} bulan</p>
           </div>
           <div class="project-detail">
