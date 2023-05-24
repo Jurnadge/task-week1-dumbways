@@ -262,16 +262,21 @@
 
 @media only screen and (max-width: 1150px) {
   .add-my-project-form {
-    width: 80%;
+    width: 60%;
   }
 
   .form-container {
-    width: 80%;
+    width: 60%;
   }
 
-  form {
+  /* form input {
+    width: 3%;
+  } */
+
+  .gitu-doang-bingung {
     width: 100%;
   }
+
   .grid-container {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto auto 1fr;
@@ -283,7 +288,7 @@
     }
   
   }
-  
+
 }
 
 
