@@ -30,7 +30,7 @@ select {
   height: 37px;
 }
 
-button {
+.button-contact-me {
   background-color: orangered;
   color: white;
   padding: 6px 25px;

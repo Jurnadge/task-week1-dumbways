@@ -6,13 +6,15 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: grey;
 }
 
 /* awal style navigasi */
 nav {
-  background-color: white;
+  background-color: pink;
   display: flex;
   align-items: center;
+  border-bottom: solid 1px white;
 }
 
 nav ul {
@@ -54,16 +56,22 @@ nav ul li .active {
 
 .container-home {
   display: flex;
-  width: 35%;
+  width: 724.5px;
+  height: 541.5px;
   margin: 50px auto;
   padding: 30px;
-  box-shadow: 10px 10px 10px 10px black;
+  border-radius: 15px;
+  border: 1px solid black;
+  box-shadow: 10px 10px;
   box-sizing: content-box;
+  background-color: pink;
 }
 
 .text-kiri {
   text-align: justify;
   padding-right: 50px;
+  width: 357.25px;
+  height: 481.5px;
 }
 
 .contact-text-kiri {
@@ -78,8 +86,79 @@ nav ul li .active {
 .gambar-mukaguweh {
   align-items: right;
   border: 1px;
-  width: 1900px;
+  width: 307.25px;
+  height: 481.5px;
   border-radius: 5% 5% 5% 5%;
   box-shadow: 5px 5px 5px 3px grey;
   text-align: center;
+}
+
+/* awal style barsmenu  */
+
+#barsmenu {
+  display: none;
+}
+
+.hamburger-nav-container {
+  font-size: 23px;
+  list-style-type: none;
+  display: none;
+}
+
+.hamburger-nav-container a {
+  text-decoration: none;
+  color: white;
+  background-color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid white;
+}
+
+.hamburger-nav-container .hamburger-active {
+  text-decoration: none;
+  color: white;
+  background-color: orangered;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid white;
+}
+
+.contact-hamburger-kotak {
+  text-align: center;
+  border-radius: 5px;
+  width: 100px;
+  padding: 5px;
+  background-color: orangered;
+  color: white;
+}
+
+/* akhir style barsmenu */
+
+@media only screen and (max-width: 950px) {
+  .container-home {
+    width: 80%;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .text-kiri {
+    width: 100%;
+    height: auto;
+  }
+
+  .gambar-mukaguweh {
+    margin: auto;
+  }
+
+  #barsmenu {
+    display: block;
+  }
+
+  .item-collapse {
+    display: none;
+  }
 }

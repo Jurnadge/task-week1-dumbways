@@ -23,23 +23,42 @@
             <img src="assets\icon\logo-dumbways.png" alt="logo" />
           </li>
 
-          <li>
+          <li class="item-collapse">
             <a href="index.html">Home</a>
           </li>
 
-          <li>
+          <li class="item-collapse">
             <a class="active" href="my-project.html">My Project</a>
           </li>
-          <li>
+          <li class="item-collapse">
             <a href="#">My Testimonials</a>
           </li>
         </ul>
       </div>
 
-      <div class="nav-kanan">
+      <div class="nav-kanan item-collapse">
         <a href="contact.html">Contact</a>
       </div>
+
+      <div class="nav-kanan" id="barsmenu">
+        <button
+          style="background-color: transparent; border: none; cursor: pointer;"
+          onclick="openHamburger()"
+        ><i class="fa-solid fa-bars"></i>
+        </button>
+
+      </div>
     </nav>
+
+    <div class="hamburger-nav-container" id="hamburger-nav-container">
+      <a href="index.html">Home</a>
+      <a href="my-project.html" class="hamburger-active">My Project</a>
+      <a href="#">My Testimonials</a>
+      <div>
+        <a href="contact.html"><button class="contact-hamburger-kotak">Contact</button></a>
+        </div>
+    </div>
+
     <!-- akhir-navigasi -->
 
     <!-- awal form add my project -->

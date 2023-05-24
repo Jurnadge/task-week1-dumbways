@@ -23,23 +23,42 @@
             <img src="assets\icon\logo-dumbways.png" alt="logo" />
           </li>
 
-          <li>
-            <a href="index.html">Home</a>
+          <li class="item-collapse">
+            <a class="active" href="index.html">Home</a>
           </li>
 
-          <li>
+          <li class="item-collapse">
             <a href="my-project.html">My Project</a>
           </li>
-          <li>
+          <li class="item-collapse">
             <a href="#">My Testimonials</a>
           </li>
         </ul>
       </div>
 
-      <div class="nav-kanan">
-        <a class="active" href="contact.html">Contact</a>
+      <div class="nav-kanan item-collapse">
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div class="nav-kanan" id="barsmenu">
+        <button
+          style="background-color: transparent; border: none; cursor: pointer;"
+          onclick="openHamburger()"
+        ><i class="fa-solid fa-bars"></i>
+        </button>
+
       </div>
     </nav>
+
+    <div class="hamburger-nav-container" id="hamburger-nav-container">
+      <a href="index.html">Home</a>
+      <a href="my-project.html">My Project</a>
+      <a href="#">My Testimonials</a>
+      <div>
+        <a href="contact.html"><button class="contact-hamburger-kotak">Contact</button></a>
+      </div>
+    </div>
+
     <!-- akhir-navigasi -->
 
     <h1>GET IN TOUCH</h1>
@@ -76,7 +95,7 @@
       </div>
 
       <div>
-        <button type="button" onclick="submitData()">Submit</button>
+        <button type="button" onclick="submitData()" class="button-contact-me">Submit</button>
       </div>
     </form>
     <script src="js\contact.js"></script>
