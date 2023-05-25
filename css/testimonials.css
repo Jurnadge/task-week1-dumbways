@@ -1,0 +1,60 @@
+.testimonial-container {
+  padding: 50px 0;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.testimonial-container h1 {
+  text-align: center;
+}
+
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto (1fr);
+  column-gap: 50px;
+  row-gap: 50px;
+  width: 100%;
+}
+
+.the-actually-testimonial {
+    width: 20em;
+    height: 22em;
+    border: 1px solid;
+    margin: auto;
+    padding: 10px;
+    background-color: pink;
+    border-radius: 15px;
+    border: 1px solid black;
+    box-shadow: 10px 10px;
+}
+
+.the-actually-testimonial img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.quote {
+    text-align: justify;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+.author {
+    text-align: right;
+}
+
+@media only screen and (max-width: 1150px) {
+    .testimonials {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media only screen and (max-width: 750px) {
+    .testimonials {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+}

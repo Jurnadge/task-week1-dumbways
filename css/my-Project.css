@@ -37,142 +37,95 @@
 /* akhir style content project */
 
 /* awal style form my project */
-.add-my-project {
-  padding-top: 50px;
-}
-
-.add-my-project-form {
-  width: 700px;
-  margin: auto;
-  margin-bottom: 60px;
-  padding: 50px;
-  display: flex;
-  justify-content: center;
-  border-radius: 15px;
-  border: 1px solid black;
-  box-shadow: 10px 10px;
-  background-color: pink;
-}
-
-.add-my-project-form .form-container {
-  width: 550px;
-}
-
-.form-container h1 {
-  text-align: center;
-  margin-bottom: 40px;
-  font-family: 'Josefin Sans', sans-serif;
-}
-
-.form-container form label {
-  font-size: 20px;
-  font-weight: 600;
-  font-family: 'Josefin Sans', sans-serif;
-}
-
-.form-container .textarea-form-project {
+.form-project-container {
+  background-color: grey;
   width: 100%;
+}
+
+.form-project-container .form-container {
+  display: flex;
+  margin: auto;
+  padding: 20px;
+}
+
+.form-project-container .form-container .the-actually-form {
+  width: 33em;
+  height: 43em;
+  margin: auto;
+  background-color: pink;
+  padding: 20px;
+  padding-right: 30px;
+  border-radius: 20px;
+}
+
+.the-actually-form h1 {
+  text-align: center;
+}
+
+.the-actually-form label {
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 20px;
-  font-weight: 400;
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 13px;
-  background: #f4f3f3;
-  border: 1px solid #c4c4c4;
+  font-weight: 600px;
+  display: flex;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.the-actually-form input, textarea {
+  width: 100%;
+  padding: 5px;
   border-radius: 8px;
+  border: solid 1px;
+  font-size: 15px;
   resize: none;
 }
 
-.form-container textarea {
-  height: 250px;
-}
-
-.gitu-doang-bingung {
-  width: 550px;
+.start-end-date {
   display: flex;
+
 }
 
-.start-date-kiri {
-  width: 50%;
+.start-kiri {
+  width: 100%;
   padding-right: 50px;
 }
 
-.end-date-kanan {
-  width: 50%;
-}
-
-.gitu-doang-bingung label {
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.gitu-doang-bingung input {
+.end-kanan {
   width: 100%;
-  font-size: 20px;
-  font-weight: 400;
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 13px;
-  background: #f4f3f3;
-  border: 1px solid #c4c4c4;
+}
+
+.ckbox-technology {
+  width: 100%;
+  background-color: white;
+  padding: 5px;
   border-radius: 8px;
-  resize: none;
-  text-align: end;
+  border: solid 1px;
+  margin-top: 10px;
 }
 
-.padding-right-checkbox1 {
-  padding-right: 100px;
+.ckbox-technology input {
+  width: 50px;
 }
 
-.padding-right-checkbox2 {
-  padding-right: 99.2px;
-}
-
-.form-checkbox-technologies {
-  width: 103%;
-  padding-bottom: 10px;
+.the-checkbox {
   display: flex;
-  border: 1px solid #c4c4c4;
-  border-radius: 8px;
-  background-color: #f4f3f3;
 }
 
-.ahelah {
-  padding-bottom: 10px;
-  padding-top: 2px;
-  padding-left: 2px;
-}
-
-.form-input-file-image {
+.uploud-image {
+  display: flex;
   width: 100%;
-  font-size: 20px;
-  font-weight: 400;
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 13px;
-  background: #f4f3f3;
-  border: 1px solid #c4c4c4;
+  background-color: white;
+  padding: 5px;
   border-radius: 8px;
-  resize: none;
-  text-align: end;
-}
-
-.form-input-file-image input {
+  border: solid 1px;
   color: white;
 }
 
-.add-my-project-form form .button-send-project {
-  width: 102%;
-  font-size: 20px;
-  font-weight: 400;
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 13px;
-  resize: none;
-  text-align: end;
+.uploud-image {
+  color: black;
 }
 
-.add-my-project-form form .button-send-project button {
+.btn-submit {
   width: 100px;
   height: 30px;
   border-radius: 8px;

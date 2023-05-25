@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width" , initial-scale="1.0" />
+    <title>Contact Me</title>
+    <link rel="stylesheet" href="css\style.css" />
+    <link rel="stylesheet" href="css\testimonials.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <!-- awal-navigasi -->
+    <nav>
+      <div class="nav-kiri">
+        <ul>
+          <li>
+            <img src="assets\icon\logo-dumbways.png" alt="logo" />
+          </li>
+
+          <li class="item-collapse">
+            <a href="index.html">Home</a>
+          </li>
+
+          <li class="item-collapse">
+            <a href="my-project.html">My Project</a>
+          </li>
+          <li class="item-collapse">
+            <a class="active" href="#">My Testimonials</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-kanan item-collapse">
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div class="nav-kanan" id="barsmenu">
+        <button
+          style="background-color: transparent; border: none; cursor: pointer;"
+          onclick="openHamburger()"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <div class="hamburger-nav-container" id="hamburger-nav-container">
+      <a href="index.html">Home</a>
+      <a href="my-project.html">My Project</a>
+      <a href="#" class="hamburger-active">My Testimonials</a>
+      <div>
+        <a href="contact.html"
+          ><button class="contact-hamburger-kotak">Contact</button></a
+        >
+      </div>
+    </div>
+    <script src="js/index.js"></script>
+    <!-- akhir-navigasi -->
+
+    <div class="testimonial-container">
+      <h1>My Testimonials</h1>
+
+      <section class="testimonials" id="testimonials">
+        <div class="the-actually-testimonial">
+          <!-- <img src="assets/images/profile/profilememe.png" alt="" />
+          <p class="quote">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            Consequatur at nesciunt laborum ex iste beatae itaque quasi mollitia
+            animi. Distinctio numquam odit labore beatae eveniet voluptas eius
+            illo, soluta praesentium?
+          </p>
+          <p class="author">~By Someone</p>
+        </div>
+        <div class="the-actually-testimonial">
+          <img src="assets/images/profile/profilememe.png" alt="" />
+          <p class="quote">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            Consequatur at nesciunt laborum ex iste beatae itaque quasi mollitia
+            animi. Distinctio numquam odit labore beatae eveniet voluptas eius
+            illo, soluta praesentium?
+          </p>
+          <p class="author">~By Someone</p>
+        </div>
+        <div class="the-actually-testimonial">
+          <img src="assets/images/profile/profilememe.png" alt="" />
+          <p class="quote">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            Consequatur at nesciunt laborum ex iste beatae itaque quasi mollitia
+            animi. Distinctio numquam odit labore beatae eveniet voluptas eius
+            illo, soluta praesentium?
+          </p>
+          <p class="author">~By Someone</p>
+        </div> -->
+      </section>
+
+      <script src="js/testimonials.js"></script>
+    </div>
+  </body>
+</html>

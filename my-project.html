@@ -31,7 +31,7 @@
             <a class="active" href="my-project.html">My Project</a>
           </li>
           <li class="item-collapse">
-            <a href="#">My Testimonials</a>
+            <a href="testimonials.html">My Testimonials</a>
           </li>
         </ul>
       </div>
@@ -44,111 +44,91 @@
         <button
           style="background-color: transparent; border: none; cursor: pointer;"
           onclick="openHamburger()"
-        ><i class="fa-solid fa-bars"></i>
+        >
+          <i class="fa-solid fa-bars"></i>
         </button>
-
       </div>
     </nav>
 
     <div class="hamburger-nav-container" id="hamburger-nav-container">
       <a href="index.html">Home</a>
       <a href="my-project.html" class="hamburger-active">My Project</a>
-      <a href="#">My Testimonials</a>
+      <a href="testimonials.html">My Testimonials</a>
       <div>
-        <a href="contact.html"><button class="contact-hamburger-kotak">Contact</button></a>
-        </div>
+        <a href="contact.html"
+          ><button class="contact-hamburger-kotak">Contact</button></a
+        >
+      </div>
     </div>
+    <script src="js/index.js"></script>
 
     <!-- akhir-navigasi -->
 
     <!-- awal form add my project -->
 
-    <div class="add-my-project">
-      <div class="add-my-project-form">
-        <div class="form-container">
+    <div class="form-project-container">
+      <div class="form-container">
+        <div class="the-actually-form">
+          <h1>Add My Project</h1>
+
           <form onsubmit="addProject(event)">
-            <h1>Add My Project</h1>
             <div>
-              <label for="input-project-name">Project name</label>
-              <input
-                type="text"
-                id="input-project-name"
-                class="textarea-form-project"
-                placeholder="Project Name"
-                required
-              />
+              <label for="input-project-name">Project Name</label>
+              <input type="text" id="input-project-name" required />
             </div>
 
-            <div class="gitu-doang-bingung">
-              <div class="start-date-kiri">
+            <div class="start-end-date">
+              <div class="start-kiri">
                 <label for="input-start-date">Start Date</label>
-                <input
-                  type="date"
-                  id="input-start-date"
-                  required
-                />
+                <input type="date" id="input-start-date" required />
               </div>
-              <div class="end-date-kanan">
+
+              <div class="end-kanan">
                 <label for="input-end-date">End Date</label>
-                <input
-                  type="date"
-                  id="input-end-date"
-                  required
-                />
+                <input type="date" id="input-end-date" required />
               </div>
             </div>
 
             <div>
               <label for="input-description">Description</label>
-              <textarea
-                id="input-description"
-                class="textarea-form-project"
-                placeholder="Type the Description"
-                required
-              ></textarea>
+              <textarea id="input-description" rows="10" required></textarea>
             </div>
-            <div class="form-checkbox-technologies">
-              <div>
-                <div class="ahelah">
-                  <label>Technologies</label>
+
+            <div class="ckbox-technology">
+              <label>Technology</label>
+              <div class="the-checkbox">
+                <div>
+                  <label><input type="checkbox" id="node-js" />Node Js</label>
+                  <label><input type="checkbox" id="next-js" />Next Js</label>
                 </div>
                 <div>
-                  <label for="node-js" class="padding-right-checkbox1">
-                    <input type="checkbox" id="node-js" />Node JS</label
-                  >
-
-                  <label for="next-js">
-                    <input type="checkbox" id="next-js" />Next JS</label
+                  <label><input type="checkbox" id="react-js" />React Js</label>
+                  <label
+                    ><input type="checkbox" id="type-script" />Type
+                    Script</label
                   >
                 </div>
-                <div>
-                  <label for="react-js" class="padding-right-checkbox2">
-                    <input type="checkbox" id="react-js" />React JS</label
-                  >
+              </div>
+            </div>
 
-                  <label for="type-script">
-                    <input type="checkbox" id="type-script" />TypeScript</label
-                  >
+            <div>
+              <div style="padding-top: 5px;">
+                <label>Uploud Image</label>
+                <div class="uploud-image">
+                  <input
+                    type="file"
+                    style="padding-top: 11px; border: none; color: white;"
+                    id="input-imeg"
+                    required
+                  />
+                  <p><i class="fa-solid fa-paperclip"></i></p>
                 </div>
               </div>
             </div>
             <div>
-              <div>
-                <label for="input-imeg">Uploud images</label>
+              <div style="width: 102%; margin-top: 10px;">
+                <button class="btn-submit" style="float: right;">Submit</button>
               </div>
-              <div class="form-input-file-image">
-                <input
-                  type="file"
-                  id="input-imeg"
-                  required
-                />&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<i
-                  class="fa-solid fa-paperclip"
-                ></i>
-              </div>
-            </div>
-            <div class="button-send-project">
-              <button>Submit</button>
             </div>
           </form>
         </div>
@@ -165,14 +145,17 @@
         <div class="grid-item1">
           <img src="assets\images\gridimage-1.jpg" alt="gambar-hehe" />
           <div class="judul-project-deadline">
-            <a href="my-project-detail.html"><p class="judul-project">gambar hp</p></a>
+            <a href="my-project-detail.html"
+              ><p class="judul-project">gambar hp</p></a
+            >
             <p class="deadline-project">Duration: 4month</p>
           </div>
           <div class="project-detail">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-              Consequatur dolorum libero expedita molestias est officiis enim delectus iure laborum ipsam nobis, 
-              cum inventore odio corrupti adipisci dolores veritatis ad ea.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Consequatur dolorum libero expedita molestias est officiis enim
+              delectus iure laborum ipsam nobis, cum inventore odio corrupti
+              adipisci dolores veritatis ad ea.
             </p>
           </div>
           <div class="font-awesome-grid">
