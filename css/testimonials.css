@@ -2,11 +2,13 @@
   padding: 50px 0;
   align-items: center;
   justify-content: center;
+  text-align: center;
   margin: 0;
 }
 
 .testimonial-container h1 {
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .testimonials {
@@ -57,4 +59,28 @@
         grid-template-columns: repeat(1, 1fr);
     }
 
+}
+
+.btn-testimonial {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.btn-testimonial button {
+    width: 50px;
+    margin-right: 35px;
+    border-radius: 10px;
+    background-color: orangered;
+    color: white;
+}
+
+.testimonials h1 {
+    margin: 0;
+}
+
+.data-not-found {
+    grid-column-start: 2;
 }

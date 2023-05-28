@@ -65,9 +65,18 @@
 
     <div class="testimonial-container">
       <h1>My Testimonials</h1>
+      <div><h2>Rating By Stars</h2></div>
+      <div class="btn-testimonial">
+        <button onclick="allTestimonials()">All</button>
+        <button onclick="filterTestimonials(1)">1 <i class="fa-solid fa-star" style="color: #ffffff;"></i></i></button>
+        <button onclick="filterTestimonials(2)">2 <i class="fa-solid fa-star" style="color: #ffffff;"></i></i></button>
+        <button onclick="filterTestimonials(3)">3 <i class="fa-solid fa-star" style="color: #ffffff;"></i></i></button>
+        <button onclick="filterTestimonials(4)">4 <i class="fa-solid fa-star" style="color: #ffffff;"></i></i></button>
+        <button onclick="filterTestimonials(5)">5 <i class="fa-solid fa-star" style="color: #ffffff;"></i></i></button>
+      </div>
 
       <section class="testimonials" id="testimonials">
-        <div class="the-actually-testimonial">
+        <!-- <div class="the-actually-testimonial"> -->
           <!-- <img src="assets/images/profile/profilememe.png" alt="" />
           <p class="quote">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit.
@@ -76,6 +85,7 @@
             illo, soluta praesentium?
           </p>
           <p class="author">~By Someone</p>
+          <p class="author">5 <i class="fa-solid fa-star"></i></p>
         </div>
         <div class="the-actually-testimonial">
           <img src="assets/images/profile/profilememe.png" alt="" />
@@ -86,6 +96,7 @@
             illo, soluta praesentium?
           </p>
           <p class="author">~By Someone</p>
+          <p class="author">5 <i class="fa-solid fa-star"></i></p>
         </div>
         <div class="the-actually-testimonial">
           <img src="assets/images/profile/profilememe.png" alt="" />
@@ -96,7 +107,9 @@
             illo, soluta praesentium?
           </p>
           <p class="author">~By Someone</p>
-        </div> -->
+          <p class="author">5 <i class="fa-solid fa-star"></i></p> -->
+        </div>
+        
       </section>
 
       <script src="js/testimonials.js"></script>
