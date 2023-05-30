@@ -59,42 +59,111 @@
 
 // document.getElementById("testimonials").innerHTML = testimonialHTML;
 
+// const testimonialData = [
+//   {
+//     author: "Sang Pekerja Keras",
+//     quote: "Tiada hari tanpa bekerja",
+//     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUFlqFfHWppaEYHpo7aJgxEkd75_HoglTdHOQZnoNxRANLHAGTm8BLvp4bngbg2rheHA0&usqp=CAU",
+//     rating: 5,
+//   },
+//   {
+//     author: "Xie Phalings Gantengs",
+//     quote: "hay maniez!!!",
+//     image: "https://i.pinimg.com/originals/2a/28/5a/2a285af8af62a57709571a27f88dabe7.jpg",
+//     rating: 5,
+//   },
+//   {
+//     author: "Bapak Bapak Facebook",
+//     quote: "keren cuy",
+//     image: "https://1fid.com/wp-content/uploads/2022/12/meme-profile-picture-1024x1022.jpg",
+//     rating: 4,
+//   }
+// ];
 
+// function allTestimonials() {
+//   let testimonialHTML = "";
 
-const testimonialData = [
-  {
-    author: "Sang Pekerja Keras",
-    quote: "Tiada hari tanpa bekerja",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUFlqFfHWppaEYHpo7aJgxEkd75_HoglTdHOQZnoNxRANLHAGTm8BLvp4bngbg2rheHA0&usqp=CAU",
-    rating: 5,
-  },
-  {
-    author: "Xie Phalings Gantengs",
-    quote: "hay maniez!!!",
-    image: "https://i.pinimg.com/originals/2a/28/5a/2a285af8af62a57709571a27f88dabe7.jpg",
-    rating: 5,
-  },
-  {
-    author: "Bapak Bapak Facebook",
-    quote: "keren cuy",
-    image: "https://1fid.com/wp-content/uploads/2022/12/meme-profile-picture-1024x1022.jpg",
-    rating: 4,
+//   testimonialData.forEach(function (item) {
+//     testimonialHTML += `<div class="the-actually-testimonial">
+//                         <img src="${item.image}"/>
+//                         <p class="quote">
+//                           ${item.quote}
+//                         </p>
+//                         <p class="author">~${item.author}</p>
+//                         <p class="author">${item.rating} <i class="fa-solid fa-star"></i></p>
+//                         </div>
+//                         `;
+//   });
+
+//   document.getElementById("testimonials").innerHTML = testimonialHTML;
+// }
+
+// allTestimonials();
+
+// function filterTestimonials(rating) {
+//   let = testimonialHTML = "";
+
+//   const testimonialFiltered = testimonialData.filter(function (item) {
+//     return item.rating === rating;
+//   });
+
+//   if (testimonialFiltered.length === 0) {
+//     testimonialHTML += `<div class="data-not-found">
+//                           <h1>Data Not Found<h1>
+//                           </div>
+//                         `;
+//   } else {
+//     testimonialFiltered.forEach(function(item) {
+//       testimonialHTML += `<div class="the-actually-testimonial">
+//                           <img src="${item.image}"/>
+//                           <p class="quote">
+//                             ${item.quote}
+//                           </p>
+//                           <p class="author">~${item.author}</p>
+//                           <p class="author">${item.rating} <i class="fa-solid fa-star"></i></p>
+//                           </div>
+//                           `;
+//     });
+//   }
+
+//   document.getElementById("testimonials").innerHTML = testimonialHTML;
+// }
+
+const testimonialPromise = new Promise(
+  (testimonialResolve, testimonialReject) => {
+    const testimonialData = new XMLHttpRequest();
+    testimonialData.open(
+      "GET",
+      "https://api.npoint.io/449ff1485066401b7a5f",
+      true
+    );
+    testimonialData.onload = () => {
+      if (testimonialData.status === 200) {
+        testimonialResolve(JSON.parse(testimonialData.response));
+      } else {
+        testimonialReject("error loading data");
+      }
+    };
+    testimonialData.onerror = () => {
+      testimonialReject("network eror");
+    };
+    testimonialData.send();
   }
-];
+);
 
-function allTestimonials() {
+async function allTestimonials() {
+  const testimonialResponse = await testimonialPromise;
+
   let testimonialHTML = "";
-
-  testimonialData.forEach(function (item) {
+  testimonialResponse.forEach(function (item) {
     testimonialHTML += `<div class="the-actually-testimonial">
-                        <img src="${item.image}"/>
-                        <p class="quote">
-                          ${item.quote}
-                        </p>
-                        <p class="author">~${item.author}</p>
-                        <p class="author">${item.rating} <i class="fa-solid fa-star"></i></p>
-                        </div>
-                        `;
+                          <img src="${item.image}"/>
+                          <p class="quote">
+                            ${item.quote}
+                          </p>
+                          <p class="author">~${item.author}</p>
+                          <p class="author">${item.rating} <i class="fa-solid fa-star"></i></p>
+                          </div>`;
   });
 
   document.getElementById("testimonials").innerHTML = testimonialHTML;
@@ -102,29 +171,30 @@ function allTestimonials() {
 
 allTestimonials();
 
-function filterTestimonials(rating) {
-  let = testimonialHTML = "";
+async function filterTestimonials(rating) {
+  const testimonialResponse = await testimonialPromise;
 
-  const testimonialFiltered = testimonialData.filter(function (item) {
+  let testimonialHTML = "";
+  const testimonialFiltered = testimonialResponse.filter((item) => {
     return item.rating === rating;
   });
 
   if (testimonialFiltered.length === 0) {
-    testimonialHTML += `<div class="data-not-found">
-                          <h1>Data Not Found<h1>
+    testimonialHTML = `<div class="data-not-found">
+                         <h1>Data Not Found<h1>
+                       </div>
+                       `;
+  } else {
+    testimonialFiltered.forEach((item) => {
+      testimonialHTML += ` <div class="the-actually-testimonial">
+                            <img src="${item.image}"/>
+                            <p class="quote">
+                              ${item.quote}
+                            </p>
+                            <p class="author">~${item.author}</p>
+                            <p class="author">${item.rating} <i class="fa-solid fa-star"></i></p>
                           </div>
                         `;
-  } else {
-    testimonialFiltered.forEach(function(item) {
-      testimonialHTML += `<div class="the-actually-testimonial">
-                          <img src="${item.image}"/>
-                          <p class="quote">
-                            ${item.quote}
-                          </p>
-                          <p class="author">~${item.author}</p>
-                          <p class="author">${item.rating} <i class="fa-solid fa-star"></i></p>
-                          </div>
-                          `;
     });
   }
 
