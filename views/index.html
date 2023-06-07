@@ -140,6 +140,7 @@
       <h1 class="text-center margin-padding-h1">My Project</h1>
       <div class="container text-center mb-5">
         <div class="row pb-3">
+          {{range $index, $data := .Projects}}
           <div
             class="col-md-5 card me-auto ms-auto shadow-lg pb-3 mb-3"
             style="width: 25rem;"
@@ -150,30 +151,49 @@
               alt=""
             />
             <div class="lineHeight-judulDurasi">
-              <a class="text-decoration-none" href="project-detail/1"><h6 class="text-start">Judul project - 2020</h6></a>
-              <p class="text-start fontSize-durasi">durasi: 3 bulan</p>
+              <a class="text-decoration-none" href="project-detail/{{$index}}"
+                ><h6 class="text-start">
+                  {{$data.Title}}
+                </h6></a
+              >
+              <p class="text-start fontSize-durasi">
+                Deadline: {{$data.StartDate}} - {{$data.EndDate}}
+              </p>
+              <p class="text-start fontSize-durasi">{{$data.Deadline}}</p>
             </div>
             <p class="text-start mt-4 mb-2 text-truncate">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Consectetur laudantium nihil facilis voluptates consequatur in
-              harum id earum nemo laborum reprehenderit, voluptatem est.
-              Sapiente odio tempore, ex veniam quam odit?
+              {{$data.Description}}
             </p>
             <p class="fs-1 line-spacing text-start">
+              {{if $data.NodeJS}}
               <i class="fa-brands fa-node-js"></i>
-              <i class="fa-brands fa-google-play"></i>
+              {{end}} {{if $data.NextJS}}
+              <i class="fa-solid fa-n"></i>
+              {{end}} {{if $data.ReactJS}}
               <i class="fa-brands fa-react"></i>
-              <i class="fa-brands fa-java"></i>
+              {{end}} {{if $data.TypeScript}}
+              <i class="fa-solid fa-scroll"></i>
+              {{end}}
             </p>
-            <div>
+            <div class="d-flex">
               <button class="btn bg-orange color-white" style="width: 49%;">
                 Edit
               </button>
-              <button class="btn bg-orange color-white" style="width: 49%;">
-                Delete
-              </button>
+              <form
+                class="ms-1"
+                action="/project-delete/{{$index}}"
+                method="post"
+              >
+                <input
+                  type="submit"
+                  value="Delete"
+                  class="btn bg-orange color-white"
+                  style="width: 262%;"
+                />
+              </form>
             </div>
           </div>
+          {{end}}
         </div>
       </div>
     </div>

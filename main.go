@@ -1,12 +1,51 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"text/template"
+	"time"
 
 	"github.com/labstack/echo/v4"
 )
+
+type Project struct {
+	Title       string
+	StartDate   string
+	EndDate     string
+	Deadline    string
+	Description string
+	NodeJS      bool
+	NextJS      bool
+	ReactJS     bool
+	TypeScript  bool
+}
+
+var ProjectData = []Project{
+	{
+		Title:       "Title of the project",
+		StartDate:   "12 November 2023",
+		EndDate:     "13 January 2024",
+		Deadline:    "Duration : 3 Month",
+		Description: "Desc of the project",
+		NodeJS:      true,
+		NextJS:      true,
+		ReactJS:     true,
+		TypeScript:  true,
+	},
+	{
+		Title:       "Title of the project 2",
+		StartDate:   "12 November 2023",
+		EndDate:     "13 January 2024",
+		Deadline:    "Duration : 3 Month",
+		Description: "Desc of the project 2",
+		NodeJS:      true,
+		NextJS:      true,
+		ReactJS:     true,
+		TypeScript:  true,
+	},
+}
 
 func main() {
 	e := echo.New()
@@ -17,6 +56,7 @@ func main() {
 	e.GET("/contact", contact)
 	e.GET("/add-project", addProject)
 	e.POST("/added-project", addedProject)
+	e.POST("/project-delete/:id", deleteProject)
 	e.GET("/my-testimonials", myTestimonials)
 	e.GET("/project-detail/:id", projectDetail)
 
@@ -33,8 +73,10 @@ func home(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 
 	}
-
-	return tmpl.Execute(c.Response(), nil)
+	projects := map[string]interface{}{
+		"Projects": ProjectData,
+	}
+	return tmpl.Execute(c.Response(), projects)
 }
 
 func contact(c echo.Context) error {
@@ -60,15 +102,71 @@ func addProject(c echo.Context) error {
 }
 
 func addedProject(c echo.Context) error {
+
 	title := c.FormValue("inputProjectName")
 	description := c.FormValue("inputDescription")
-	startDate := c.FormValue("inputStartDate")
-	endDate := c.FormValue("inputEndDate")
 
-	println("Tittle : " + title)
-	println("Description : " + description)
-	println("Start date : " + startDate)
-	println("End date :" + endDate)
+	//getting date input
+	startDateInput := c.FormValue("inputStartDate")
+	endDateInput := c.FormValue("inputEndDate")
+	//
+	getStartDt, _ := time.Parse("2006-01-02", startDateInput)
+	startDate := getStartDt.Format("2 Jan 2006")
+	//
+	getEndDt, _ := time.Parse("2006-01-02", endDateInput)
+	endDate := getEndDt.Format("2 Jan 2006")
+	//
+	var finalDiffTime string
+	timeDiff := getEndDt.Sub(getStartDt)
+	//
+	if timeDiff.Hours()/24 < 30 {
+		fdt := strconv.FormatFloat(timeDiff.Hours()/24, 'f', 0, 64)
+		finalDiffTime = "Duration: " + fdt + "Day"
+	} else if timeDiff.Hours()/24/30 < 12 {
+		fdt := strconv.FormatFloat(timeDiff.Hours()/24/30, 'f', 0, 64)
+		finalDiffTime = "Duration: " + fdt + "Month"
+	} else {
+		fdt := strconv.FormatFloat(timeDiff.Hours()/24/30/12, 'f', 0, 64)
+		finalDiffTime = "Duration: " + fdt + "Year"
+	}
+
+	//start techtype
+	var nodeJs bool
+	if c.FormValue("NodeJs") == "yes" {
+		nodeJs = true
+	}
+
+	var nextJs bool
+	if c.FormValue("NextJs") == "yes" {
+		nextJs = true
+	}
+
+	var reactJs bool
+	if c.FormValue("ReactJs") == "yes" {
+		reactJs = true
+	}
+
+	var typeScript bool
+	if c.FormValue("TypeScript") == "yes" {
+		typeScript = true
+	}
+	//end techtype
+
+	var newData = Project{
+		Title:       title,
+		StartDate:   startDate,
+		EndDate:     endDate,
+		Deadline:    finalDiffTime,
+		Description: description,
+		NodeJS:      nodeJs,
+		NextJS:      nextJs,
+		ReactJS:     reactJs,
+		TypeScript:  typeScript,
+	}
+
+	ProjectData = append(ProjectData, newData)
+
+	fmt.Println(ProjectData)
 
 	return c.Redirect(http.StatusMovedPermanently, "/")
 }
@@ -87,11 +185,33 @@ func myTestimonials(c echo.Context) error {
 func projectDetail(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	data := map[string]interface{}{
-		"id":      id,
-		"Tittle":  "Judul Project",
-		"Content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore nam neque dicta sint, laudantium commodi iure sed! Ipsam corrupti at mollitia obcaecati maxime alias sequi laborum et! Maiores, nulla libero?",
+	// data := map[string]interface{}{
+	// 	"id":      id,
+	// 	"Tittle":  "Judul Project",
+	// 	"Content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore nam neque dicta sint, laudantium commodi iure sed! Ipsam corrupti at mollitia obcaecati maxime alias sequi laborum et! Maiores, nulla libero?",
+	// }
+
+	var ProjectDetail = Project{}
+	for i, data := range ProjectData {
+		if id == i {
+			ProjectDetail = Project{
+				Title:       data.Title,
+				StartDate:   data.StartDate,
+				EndDate:     data.EndDate,
+				Deadline:    data.Deadline,
+				Description: data.Description,
+				NodeJS:      data.NodeJS,
+				NextJS:      data.NextJS,
+				ReactJS:     data.ReactJS,
+				TypeScript:  data.TypeScript,
+			}
+		}
 	}
+
+	data := map[string]interface{}{
+		"Project": ProjectDetail,
+	}
+
 	var tmpl, err = template.ParseFiles("views/project-detail.html")
 
 	if err != nil {
@@ -99,4 +219,13 @@ func projectDetail(c echo.Context) error {
 	}
 
 	return tmpl.Execute(c.Response(), data)
+}
+
+func deleteProject(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	fmt.Println("Index : ", id)
+
+	ProjectData = append(ProjectData[:id], ProjectData[id+1:]...)
+
+	return c.Redirect(http.StatusMovedPermanently, "/")
 }
