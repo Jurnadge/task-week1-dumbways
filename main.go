@@ -1,9 +1,11 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"strconv"
+	"task-web-dev-with-bootstrap/connection"
 	"text/template"
 	"time"
 
@@ -11,6 +13,7 @@ import (
 )
 
 type Project struct {
+	ID          int
 	Title       string
 	StartDate   string
 	EndDate     string
@@ -20,6 +23,7 @@ type Project struct {
 	NextJS      bool
 	ReactJS     bool
 	TypeScript  bool
+	Image       string
 }
 
 var ProjectData = []Project{
@@ -27,7 +31,7 @@ var ProjectData = []Project{
 		Title:       "Title of the project",
 		StartDate:   "12 November 2023",
 		EndDate:     "13 January 2024",
-		Deadline:    "Duration : 3 Month",
+		Deadline:    "Deadline: 3 Month",
 		Description: "Desc of the project",
 		NodeJS:      true,
 		NextJS:      true,
@@ -38,7 +42,7 @@ var ProjectData = []Project{
 		Title:       "Title of the project 2",
 		StartDate:   "12 November 2023",
 		EndDate:     "13 January 2024",
-		Deadline:    "Duration : 3 Month",
+		Deadline:    "Deadline: 3 Month",
 		Description: "Desc of the project 2",
 		NodeJS:      true,
 		NextJS:      true,
@@ -48,6 +52,8 @@ var ProjectData = []Project{
 }
 
 func main() {
+	connection.DatabaseConnect()
+
 	e := echo.New()
 
 	e.Static("/public", "public")
@@ -67,15 +73,32 @@ func main() {
 }
 
 func home(c echo.Context) error {
+
+	data, _ := connection.Conn.Query(context.Background(), "SELECT id, title, start_date, end_date, deadline, description, nodejs, nextjs, reactjs, typescript FROM tb_project")
+
+	var result []Project
+	for data.Next() {
+		var each = Project{}
+
+		err := data.Scan(&each.ID, &each.Title, &each.StartDate, &each.EndDate, &each.Deadline, &each.Description, &each.NodeJS, &each.NextJS, &each.ReactJS, &each.TypeScript)
+		if err != nil {
+			fmt.Println(err.Error())
+			return c.JSON(http.StatusInternalServerError, map[string]string{"Message": err.Error()})
+		}
+
+		result = append(result, each)
+	}
+	projects := map[string]interface{}{
+		"Projects": result,
+	}
+
 	var tmpl, err = template.ParseFiles("views/index.html")
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 
 	}
-	projects := map[string]interface{}{
-		"Projects": ProjectData,
-	}
+
 	return tmpl.Execute(c.Response(), projects)
 }
 
@@ -121,13 +144,13 @@ func addedProject(c echo.Context) error {
 	//
 	if timeDiff.Hours()/24 < 30 {
 		fdt := strconv.FormatFloat(timeDiff.Hours()/24, 'f', 0, 64)
-		finalDiffTime = "Duration: " + fdt + "Day"
+		finalDiffTime = "Deadline: " + fdt + "Day"
 	} else if timeDiff.Hours()/24/30 < 12 {
 		fdt := strconv.FormatFloat(timeDiff.Hours()/24/30, 'f', 0, 64)
-		finalDiffTime = "Duration: " + fdt + "Month"
+		finalDiffTime = "Deadline: " + fdt + "Month"
 	} else {
 		fdt := strconv.FormatFloat(timeDiff.Hours()/24/30/12, 'f', 0, 64)
-		finalDiffTime = "Duration: " + fdt + "Year"
+		finalDiffTime = "Deadline: " + fdt + "Year"
 	}
 
 	//start techtype
