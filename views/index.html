@@ -159,10 +159,10 @@
               <p class="text-start fontSize-durasi">
                 Date: {{$data.StartDate}} until {{$data.EndDate}}
               </p>
-              <p class="text-start fontSize-durasi">{{$data.Deadline}}</p>
+              <p class="text-start fontSize-durasi">{{$data.Duration}}</p>
             </div>
             <p class="text-start mt-4 mb-2 text-truncate">
-              {{$data.Description}}
+              {{$data.Content}}
             </p>
             <p class="fs-1 line-spacing text-start">
               {{if $data.NodeJS}}
@@ -176,7 +176,7 @@
               {{end}}
             </p>
             <div class="d-flex">
-              <form action="/project-edit/%index" method="get">
+              <form action="/update-project/{{$index}}" method="get">
                 <input
                   type="submit"
                   value="Edit"
