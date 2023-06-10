@@ -1,9 +1,11 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"strconv"
+	"task-web-dev-with-bootstrap/connection"
 	"text/template"
 	"time"
 
@@ -49,6 +51,7 @@ var dataProject = []Project{
 }
 
 func main() {
+	connection.DatabaseConnect()
 
 	e := echo.New()
 
@@ -69,14 +72,28 @@ func main() {
 }
 
 func home(c echo.Context) error {
-	var tmpl, err = template.ParseFiles("views/index.html")
+	data, _ := connection.Conn.Query(context.Background(), "SELECT id, title, start_date, end_date, duration, content, nodejs, nextjs, reactjs, typescript FROM tb_project")
 
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
+	var result []Project
+	for data.Next() {
+		var each = Project{}
+
+		err := data.Scan(&each.Id, &each.Title, &each.StartDate, &each.EndDate, &each.Duration, &each.Content, &each.NodeJS, &each.NextJS, &each.ReactJS, &each.TypeScript)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
+		}
+
+		result = append(result, each)
+	}
+
+	var tmpl, errTemplate = template.ParseFiles("views/index.html")
+
+	if errTemplate != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": errTemplate.Error()})
 	}
 
 	projects := map[string]interface{}{
-		"Projects": dataProject,
+		"Projects": result,
 	}
 
 	return tmpl.Execute(c.Response(), projects)
@@ -114,8 +131,8 @@ func addProjectForm(c echo.Context) error {
 }
 
 func calculateDuration(startDateInput, endDateInput string) string {
-	startTime, _ := time.Parse("2006-01-02", startDateInput)
-	endTime, _ := time.Parse("2006-01-02", endDateInput)
+	startTime, _ := time.Parse("2 January 2006", startDateInput)
+	endTime, _ := time.Parse("2 January 2006", endDateInput)
 
 	durationTime := int(endTime.Sub(startTime).Hours())
 	durationDays := durationTime / 24
@@ -200,30 +217,21 @@ func projectDetail(c echo.Context) error {
 
 	var ProjectDetail = Project{}
 
-	for i, data := range dataProject {
-		if id == i {
-			ProjectDetail = Project{
-				Title:      data.Title,
-				StartDate:  data.StartDate,
-				EndDate:    data.EndDate,
-				Duration:   data.Duration,
-				Content:    data.Content,
-				NodeJS:     data.NodeJS,
-				NextJS:     data.NextJS,
-				ReactJS:    data.ReactJS,
-				TypeScript: data.TypeScript,
-			}
-		}
+	err := connection.Conn.QueryRow(context.Background(), "SELECT id, title, start_date, end_date, duration, content, nodejs, nextjs, reactjs, typescript FROM tb_project WHERE id=$1", id).Scan(
+		&ProjectDetail.Id, &ProjectDetail.Title, &ProjectDetail.StartDate, &ProjectDetail.EndDate, &ProjectDetail.Duration, &ProjectDetail.Content, &ProjectDetail.NodeJS, &ProjectDetail.NextJS, &ProjectDetail.ReactJS, &ProjectDetail.TypeScript)
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 	}
 
 	data := map[string]interface{}{
 		"Project": ProjectDetail,
 	}
 
-	var tmpl, err = template.ParseFiles("views/project-detail.html")
+	var tmpl, errTemplate = template.ParseFiles("views/project-detail.html")
 
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
+	if errTemplate != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": errTemplate.Error()})
 	}
 
 	return tmpl.Execute(c.Response(), data)

@@ -151,7 +151,7 @@
               alt=""
             />
             <div class="lineHeight-judulDurasi">
-              <a class="text-decoration-none" href="project-detail/{{$index}}"
+              <a class="text-decoration-none" href="project-detail/{{$data.Id}}"
                 ><h6 class="text-start">
                   {{$data.Title}}
                 </h6></a
@@ -159,7 +159,7 @@
               <p class="text-start fontSize-durasi">
                 Date: {{$data.StartDate}} until {{$data.EndDate}}
               </p>
-              <p class="text-start fontSize-durasi">{{$data.Duration}}</p>
+              <p class="text-start fontSize-durasi">Duration: {{$data.Duration}}</p>
             </div>
             <p class="text-start mt-4 mb-2 text-truncate">
               {{$data.Content}}
