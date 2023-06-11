@@ -176,7 +176,7 @@
               {{end}}
             </p>
             <div class="d-flex">
-              <form action="/update-project/{{$index}}" method="get">
+              <form action="/update-project/{{$data.Id}}" method="get">
                 <input
                   type="submit"
                   value="Edit"
@@ -186,7 +186,7 @@
               </form>
               <form
                 class="ms-1"
-                action="/project-delete/{{$index}}"
+                action="/project-delete/{{$data.Id}}"
                 method="post"
               >
                 <input
