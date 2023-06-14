@@ -53,9 +53,46 @@
               >
             </li>
           </ul>
+          {{if .DataSession.IsLogin}}
+          <li class="navbar-nav nav-item nav dropdown">
+            <a
+              class="nav-link dropdown-toggle fs-4"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              HAY, {{.DataSession.Name}}
+            </a>
+            <ul class="dropdown-menu text-center">
+              <li>
+                <form id="myform" action="/logout" method="POST"></form>
+                <button
+                  onclick="document.getElementById('myform').submit()"
+                  class="btn"
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </li>
+          
+
+          {{else}}
+          <li class="nav-item nav justify-content-center">
+            <a href="login-form" class="nav-link text-decoration-none fs-4">Login</a>
+          </li>
+          <li class="nav-item nav justify-content-center">
+            <a href="signup-form" class="nav-link text-decoration-none fs-4">Signup</a>
+          </li> 
+          </li>
+          {{end}}
+
           <li class="nav-item nav d-flex justify-content-center">
-            <button class="btn bg-orange" type="button">
-              <a href="contact" class="text-decoration-none color-white"
+            <button class="btn bg-orange rounded" type="button">
+              <a
+                href="contact"
+                class="text-decoration-none color-white text-center"
                 >Contact</a
               >
             </button>

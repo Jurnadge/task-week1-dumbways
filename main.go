@@ -3,13 +3,17 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 	"task-web-dev-with-bootstrap/connection"
 	"text/template"
 	"time"
 
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type Project struct {
@@ -25,6 +29,20 @@ type Project struct {
 	TypeScript bool
 	Image      string
 }
+
+type User struct {
+	Id       int
+	Name     string
+	Email    string
+	Password string
+}
+
+type SessionData struct {
+	IsLogin bool
+	Name    string
+}
+
+var userData = SessionData{}
 
 // var dataProject = []Project{
 // 	{
@@ -56,7 +74,11 @@ func main() {
 
 	e := echo.New()
 
+	// Serve a static files form "public" directory
 	e.Static("/public", "public")
+
+	// To use sessions using echo
+	e.Use(session.Middleware(sessions.NewCookieStore([]byte("session"))))
 
 	e.GET("/", home)
 	e.GET("/contact", contact)
@@ -64,15 +86,26 @@ func main() {
 	e.GET("/add-project", addProjectForm)
 	e.GET("/project-detail/:id", projectDetail)
 	e.GET("/update-project/:id", updateProjectForm)
-
 	e.POST("/add-project", addProject)
 	e.POST("/project-delete/:id", deleteProject)
 	e.POST("/update-project/:id", updatedProject)
+
+	//SIGNUP
+	e.GET("/signup-form", signupForm)
+	e.POST("/signup", singup)
+
+	//LOGIN
+	e.GET("/login-form", loginForm)
+	e.POST("/login", login)
+
+	//LOGOuT
+	e.POST("/logout", logout)
 
 	e.Logger.Fatal(e.Start("localhost:5000"))
 }
 
 func home(c echo.Context) error {
+	//selecting table from postgres
 	data, _ := connection.Conn.Query(context.Background(), "SELECT id, title, start_date, end_date, duration, content, nodejs, nextjs, reactjs, typescript, image FROM tb_project")
 
 	var result []Project
@@ -87,14 +120,28 @@ func home(c echo.Context) error {
 		result = append(result, each)
 	}
 
+	sess, _ := session.Get("session", c)
+
+	if sess.Values["isLogin"] != true {
+		userData.IsLogin = false
+	} else {
+		userData.IsLogin = sess.Values["isLogin"].(bool)
+		userData.Name = sess.Values["name"].(string)
+	}
+
+	projects := map[string]interface{}{
+		"Projects":    result,
+		"DataSession": userData,
+	}
+
+	delete(sess.Values, "message")
+	delete(sess.Values, "status")
+	sess.Save(c.Request(), c.Response())
+
 	var tmpl, errTemplate = template.ParseFiles("views/index.html")
 
 	if errTemplate != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": errTemplate.Error()})
-	}
-
-	projects := map[string]interface{}{
-		"Projects": result,
 	}
 
 	return tmpl.Execute(c.Response(), projects)
@@ -102,33 +149,85 @@ func home(c echo.Context) error {
 }
 
 func contact(c echo.Context) error {
+
+	sess, _ := session.Get("session", c)
+
+	if sess.Values["isLogin"] != true {
+		userData.IsLogin = false
+	} else {
+		userData.IsLogin = sess.Values["isLogin"].(bool)
+		userData.Name = sess.Values["name"].(string)
+	}
+
+	projects := map[string]interface{}{
+		"DataSession": userData,
+	}
+
+	delete(sess.Values, "message")
+	delete(sess.Values, "status")
+	sess.Save(c.Request(), c.Response())
+
 	var tmpl, err = template.ParseFiles("views/contact.html")
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 	}
 
-	return tmpl.Execute(c.Response(), nil)
+	return tmpl.Execute(c.Response(), projects)
 }
 
 func testimonials(c echo.Context) error {
+	sess, _ := session.Get("session", c)
+
+	if sess.Values["isLogin"] != true {
+		userData.IsLogin = false
+	} else {
+		userData.IsLogin = sess.Values["isLogin"].(bool)
+		userData.Name = sess.Values["name"].(string)
+	}
+
+	projects := map[string]interface{}{
+		"DataSession": userData,
+	}
+
+	delete(sess.Values, "message")
+	delete(sess.Values, "status")
+	sess.Save(c.Request(), c.Response())
+
 	var tmpl, err = template.ParseFiles("views/my-testimonials.html")
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"mesasge": err.Error()})
 	}
 
-	return tmpl.Execute(c.Response(), nil)
+	return tmpl.Execute(c.Response(), projects)
 }
 
 func addProjectForm(c echo.Context) error {
+	sess, _ := session.Get("session", c)
+
+	if sess.Values["isLogin"] != true {
+		userData.IsLogin = false
+	} else {
+		userData.IsLogin = sess.Values["isLogin"].(bool)
+		userData.Name = sess.Values["name"].(string)
+	}
+
+	projects := map[string]interface{}{
+		"DataSession": userData,
+	}
+
+	delete(sess.Values, "message")
+	delete(sess.Values, "status")
+	sess.Save(c.Request(), c.Response())
+
 	var tmpl, err = template.ParseFiles("views/add-project.html")
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 	}
 
-	return tmpl.Execute(c.Response(), nil)
+	return tmpl.Execute(c.Response(), projects)
 }
 
 func calculateDuration(startDateInput string, endDateInput string) string {
@@ -218,8 +317,18 @@ func projectDetail(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 	}
 
+	sess, _ := session.Get("session", c)
+
+	if sess.Values["isLogin"] != true {
+		userData.IsLogin = false
+	} else {
+		userData.IsLogin = sess.Values["isLogin"].(bool)
+		userData.Name = sess.Values["name"].(string)
+	}
+
 	data := map[string]interface{}{
-		"Project": ProjectDetail,
+		"Project":     ProjectDetail,
+		"DataSession": userData,
 	}
 
 	var tmpl, errTemplate = template.ParseFiles("views/project-detail.html")
@@ -299,4 +408,104 @@ func updatedProject(c echo.Context) error {
 	}
 
 	return c.Redirect(http.StatusMovedPermanently, "/")
+}
+
+func signupForm(c echo.Context) error {
+	var tmpl, err = template.ParseFiles("views/signup-form.html")
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
+	}
+
+	return tmpl.Execute(c.Response(), nil)
+}
+
+func singup(c echo.Context) error {
+	err := c.Request().ParseForm()
+	if err != nil {
+		log.Fatal(err)
+	}
+	name := c.FormValue("inputName")
+	email := c.FormValue("inputEmail")
+	password := c.FormValue("inputPassword")
+
+	passwordHash, _ := bcrypt.GenerateFromPassword([]byte(password), 10)
+
+	_, err = connection.Conn.Exec(context.Background(), "INSERT INTO tb_user(name, email, password) VALUES ($1, $2, $3)", name, email, passwordHash)
+
+	if err != nil {
+		redirectWithMessage(c, "Signup failed, please try again!", false, "/signup-form")
+	}
+
+	return redirectWithMessage(c, "Signup success!", true, "/login-form")
+}
+
+func loginForm(c echo.Context) error {
+	sess, _ := session.Get("session", c)
+
+	flash := map[string]interface{}{
+		"FlashStatus":  sess.Values["status"],
+		"FlashMessage": sess.Values["message"],
+	}
+
+	delete(sess.Values, "message")
+	delete(sess.Values, "status")
+	sess.Save(c.Request(), c.Response())
+
+	var tmpl, err = template.ParseFiles("views/login-form.html")
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
+	}
+
+	return tmpl.Execute(c.Response(), flash)
+}
+
+func login(c echo.Context) error {
+	err := c.Request().ParseForm()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	email := c.FormValue("inputEmail")
+	password := c.FormValue("inputPassword")
+
+	user := User{}
+	err = connection.Conn.QueryRow(context.Background(), "SELECT * FROM tb_user WHERE email=$1", email).Scan(&user.Id, &user.Name, &user.Email, &user.Password)
+	if err != nil {
+		return redirectWithMessage(c, "Email Incorrect!", false, "/login-form")
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
+	if err != nil {
+		return redirectWithMessage(c, "Password Incorrect", false, "/login-form")
+	}
+
+	sess, _ := session.Get("session", c)
+	sess.Options.MaxAge = 10800 // 3 JAM
+	sess.Values["message"] = "Login success!"
+	sess.Values["status"] = true
+	sess.Values["name"] = user.Name
+	sess.Values["email"] = user.Email
+	sess.Values["id"] = user.Id
+	sess.Values["isLogin"] = true
+	sess.Save(c.Request(), c.Response())
+
+	return c.Redirect(http.StatusMovedPermanently, "/")
+}
+
+func logout(c echo.Context) error {
+	sess, _ := session.Get("session", c)
+	sess.Options.MaxAge = -1
+	sess.Save(c.Request(), c.Response())
+
+	return c.Redirect(http.StatusMovedPermanently, "/")
+}
+
+func redirectWithMessage(c echo.Context, message string, status bool, path string) error {
+	sess, _ := session.Get("session", c)
+	sess.Values["message"] = message
+	sess.Values["status"] = status
+	sess.Save(c.Request(), c.Response())
+	return c.Redirect(http.StatusMovedPermanently, path)
 }
