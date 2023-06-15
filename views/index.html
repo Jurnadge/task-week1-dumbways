@@ -210,8 +210,8 @@
           >
             <img
               class="object-fit-contain"
-              src="public/images/profile/profilememe.png"
-              alt=""
+              src="/uploads/{{$data.Image}}"
+              alt="..."
             />
             <div class="lineHeight-judulDurasi">
               <a class="text-decoration-none" href="project-detail/{{$data.Id}}"
@@ -223,7 +223,7 @@
                 Date: {{$data.StartDate}} until {{$data.EndDate}}
               </p>
               <p class="text-start fontSize-durasi">
-                Duration: {{$data.Duration}}
+                Duration: {{$data.Duration}} || Author: {{$data.Author}}
               </p>
             </div>
             <p class="text-start mt-4 mb-2 text-truncate">

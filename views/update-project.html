@@ -51,10 +51,14 @@
             </li>
           </ul>
           <li class="nav-item nav justify-content-center">
-            <a href="/login-form" class="nav-link text-decoration-none fs-4">Login</a>
+            <a href="/login-form" class="nav-link text-decoration-none fs-4"
+              >Login</a
+            >
           </li>
           <li class="nav-item nav justify-content-center">
-            <a href="/signup-form" class="nav-link text-decoration-none fs-4">Signup</a>
+            <a href="/signup-form" class="nav-link text-decoration-none fs-4"
+              >Signup</a
+            >
           </li>
           <li class="nav-item nav d-flex justify-content-center">
             <button class="btn bg-orange" type="button">
@@ -72,8 +76,12 @@
 
     <div class="container-sm mt-5 mb-5" style="width: 35rem;">
       <h1 class="text-center mb-5">Add My Project</h1>
-      <form action="/update-project/{{.Project.Id}}" method="post">
-        <input type="hidden" name="id" value="">
+      <form
+        action="/update-project/{{.Project.Id}}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="hidden" name="id" value="" />
         <div class="mb-3">
           <label class="form-label fs-4" for="inputProjectName"
             >Project Name</label
@@ -121,7 +129,9 @@
             id="inputDescription"
             style="height: 150px; resize: none;"
             name="inputDescription"
-          >{{.Project.Content}}</textarea>
+          >
+{{.Project.Content}}</textarea
+          >
         </div>
         <label class="mb-1 fs-4">Technologies</label>
         <div>
@@ -132,7 +142,10 @@
               id="checkNodejs"
               name="NodeJs"
               value="yes"
-              {{if .Project.NodeJS}} checked {{end}}
+              {{if
+              .Project.NodeJS}}
+              checked
+              {{end}}
             />
             <label class="form-check-label">Node Js</label>
           </div>
@@ -143,7 +156,10 @@
               id="checkNextjs"
               name="NextJs"
               value="yes"
-              {{if .Project.NextJS}} checked {{end}}
+              {{if
+              .Project.NextJS}}
+              checked
+              {{end}}
             />
             <label class="form-check-label">Next Js</label>
           </div>
@@ -156,7 +172,10 @@
               id="checkReactjs"
               name="ReactJs"
               value="yes"
-              {{if .Project.ReactJS}} checked {{end}}
+              {{if
+              .Project.ReactJS}}
+              checked
+              {{end}}
             />
             <label class="form-check-label">React Js</label>
           </div>
@@ -167,7 +186,10 @@
               id="checkTypescript"
               name="TypeScript"
               value="yes"
-              {{if .Project.TypeScript}} checked {{end}}
+              {{if
+              .Project.TypeScript}}
+              checked
+              {{end}}
             />
             <label class="form-check-label">Type Script</label>
           </div>
@@ -176,7 +198,7 @@
           <label for="imageUploud" class="form-label fs-4 mt-2"
             >Uploud Images</label
           >
-          <input class="form-control" type="file" id="imageUploud" />
+          <input class="form-control" type="file" id="inputImage" name="inputImage" />
         </div>
         <div class="mt-3 text-end">
           <button class="btn bg-orange color-white" type="submit">

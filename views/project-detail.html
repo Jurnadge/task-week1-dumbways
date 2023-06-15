@@ -100,12 +100,12 @@
     <!-- akhir navigasi -->
 
     <div class="container-xxl mt-5">
-      <h1 class="text-center">{{.Project.Title}}</h1>
+      <h1 class="text-center">{{.Project.Title}} || {{.Project.Author}}</h1>
       <div class="d-flex mt-5">
         <div>
           <img
             class="img-thumbnail"
-            src="/public/images/pixel7pro.jpg"
+            src="/uploads/{{.Project.Image}}"
             alt=""
             style="width: 41rem;"
           />
