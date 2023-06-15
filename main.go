@@ -382,8 +382,18 @@ func updateProjectForm(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 	}
 
+	sess, _ := session.Get("session", c)
+
+	if sess.Values["isLogin"] != true {
+		userData.IsLogin = false
+	} else {
+		userData.IsLogin = sess.Values["isLogin"].(bool)
+		userData.Name = sess.Values["name"].(string)
+	}
+
 	data := map[string]interface{}{
-		"Project": ProjectDetail,
+		"Project":     ProjectDetail,
+		"DataSession": userData,
 	}
 
 	var tmpl, errTemplate = template.ParseFiles("views/update-project.html")

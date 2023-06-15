@@ -41,9 +41,11 @@
             <li class="nav-item ms-2">
               <a class="nav-link" href="/">Home</a>
             </li>
+            {{if .DataSession.IsLogin}}
             <li class="nav-item ms-2">
               <a class="nav-link" href="add-project">Add Project</a>
             </li>
+            {{end}}
             <li class="nav-item ms-2">
               <a class="nav-link" href="my-testimonials">My Testimonials</a>
             </li>
@@ -83,16 +85,28 @@
             type="text"
             id="inputEmail"
             name="inputEmail"
+            required
           />
         </div>
         <div>
           <label class="form-label fs-4" for="inputPassword">Password</label>
-          <input
-            class="form-control"
-            type="password"
-            id="inputPassword"
-            name="inputPassword"
-          />
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="password"
+              id="inputPassword"
+              name="inputPassword"
+              required
+            />
+            <span
+              class="input-group-text"
+              onclick="show()"
+              style="cursor: pointer;"
+            >
+              <i class="fas fa-eye" id="show_eye"></i>
+              <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+            </span>
+          </div>
         </div>
         <div class="text-end mt-3">
           <button class="btn bg-orange color-white">Login</button>

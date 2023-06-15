@@ -41,9 +41,11 @@
             <li class="nav-item ms-2">
               <a class="nav-link" href="/">Home</a>
             </li>
+            {{if .DataSession.IsLogin}}
             <li class="nav-item ms-2">
               <a class="nav-link" href="add-project">Add Project</a>
             </li>
+            {{end}}
             <li class="nav-item ms-2">
               <a
                 class="nav-link active"
