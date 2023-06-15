@@ -108,28 +108,39 @@ func main() {
 }
 
 func home(c echo.Context) error {
-	//selecting table from postgres
-	data, _ := connection.Conn.Query(context.Background(), "SELECT tb_project.id, title, start_date, end_date, duration, content, nodejs, nextjs, reactjs, typescript, image, tb_user.name AS author FROM tb_project JOIN tb_user ON tb_project.author_id = tb_user.id ORDER BY tb_project.id DESC")
-
-	var result []Project
-	for data.Next() {
-		var each = Project{}
-
-		err := data.Scan(&each.Id, &each.Title, &each.StartDate, &each.EndDate, &each.Duration, &each.Content, &each.NodeJS, &each.NextJS, &each.ReactJS, &each.TypeScript, &each.Image, &each.Author)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
-		}
-
-		result = append(result, each)
-	}
-
 	sess, _ := session.Get("session", c)
+	var result []Project
 
 	if sess.Values["isLogin"] != true {
 		userData.IsLogin = false
+		data, _ := connection.Conn.Query(context.Background(), "SELECT tb_project.id, title, start_date, end_date, duration, content, nodejs, nextjs, reactjs, typescript, image, tb_user.name AS author FROM tb_project JOIN tb_user ON tb_project.author_id = tb_user.id ORDER BY tb_project.id ASC")
+		for data.Next() {
+			var each = Project{}
+
+			err := data.Scan(&each.Id, &each.Title, &each.StartDate, &each.EndDate, &each.Duration, &each.Content, &each.NodeJS, &each.NextJS, &each.ReactJS, &each.TypeScript, &each.Image, &each.Author)
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
+			}
+
+			result = append(result, each)
+		}
 	} else {
 		userData.IsLogin = sess.Values["isLogin"].(bool)
 		userData.Name = sess.Values["name"].(string)
+		id := sess.Values["id"].(int)
+		data, _ := connection.Conn.Query(context.Background(), "SELECT tb_project.id, title, start_date, end_date, duration, content, nodejs, nextjs, reactjs, typescript, image, tb_user.name AS author FROM tb_project JOIN tb_user ON tb_project.author_id = tb_user.id WHERE tb_user.id=$1 ORDER BY tb_project.id ASC", id)
+
+		for data.Next() {
+			var each = Project{}
+
+			err := data.Scan(&each.Id, &each.Title, &each.StartDate, &each.EndDate, &each.Duration, &each.Content, &each.NodeJS, &each.NextJS, &each.ReactJS, &each.TypeScript, &each.Image, &each.Author)
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
+			}
+
+			result = append(result, each)
+		}
+
 	}
 
 	projects := map[string]interface{}{
