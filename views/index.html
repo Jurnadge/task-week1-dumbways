@@ -257,6 +257,7 @@
                 class="ms-1"
                 action="/project-delete/{{$data.Id}}"
                 method="post"
+                onclick="return confirmDelete()"
               >
                 <input
                   type="submit"
@@ -281,5 +282,6 @@
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"
     ></script>
+    <script src="public/js/index.js"></script>
   </body>
 </html>
